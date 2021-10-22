@@ -1,8 +1,4 @@
 # ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - master
 
@@ -15,3 +11,18 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Free Trial(2eb06d8a-a683-4f9d-87ea-52519c8d074c)'
+    appType: 'webApp'
+    WebAppName: 'webapp-product-dev-api'
+    deployToSlotOrASE: true
+    ResourceGroupName: 'rg-product-dev-api'
+    SlotName: 'production'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/Harish/pr.zip'
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
