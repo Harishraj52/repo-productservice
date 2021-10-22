@@ -20,6 +20,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-- task: MSBuild@1
-  inputs:
-    solution: 'ProductServices.sln'
